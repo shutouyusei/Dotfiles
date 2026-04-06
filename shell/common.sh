@@ -16,6 +16,11 @@ alias egrep='egrep --color=auto'
 if [ "$(uname)" = "Linux" ]; then
   alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
   export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+elif [ "$(uname)" = "Darwin" ]; then
+  # Homebrew Neovim (Apple Silicon or Intel)
+  if [ -d "/opt/homebrew/bin" ]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+  fi
 fi
 
 # PATH
