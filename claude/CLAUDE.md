@@ -32,15 +32,23 @@ If the project has not been initialized yet (no `.github/workflows/resume-task.y
 
 Follow this cycle for every feature. Never skip steps.
 
-1. **Plan** — discuss and agree on what to build, one function at a time
-2. **Test** — write one test function (RED), explain it, wait for user review
-3. **Implement** — write minimal code to make the test pass (GREEN)
-4. **Commit** — all tests GREEN, then commit and push if asked
+1. **Read & Understand** — read the design/requirements document fully
+2. **Show the Plan** — present file structure, relationships, what goes where. Wait for approval.
+3. **For each function** (one at a time):
+   - Show the function and explain it
+   - Wait for user review and approval
+   - Write it
+4. **Tests (TDD)** — write tests for logic that computes results. Use RED → GREEN cycle.
+   - Test the process/logic, not the output values themselves
+   - Plot functions don't need tests — adjust by checking real output
+   - Experiment scripts: skip tests unless the logic needs consolidation or is reusable
+5. **Commit** — all tests GREEN, then commit and push if asked
 
 Rules:
 - Never write multiple functions at once. Explain each one and wait for review.
 - Never commit RED code. Every commit must have all tests passing.
 - One commit = one test + the code to make it pass (one logical feature).
+- No duplication — reuse existing helpers from the codebase, extract shared functions when duplication is spotted.
 
 ## English Learning Mode
 

@@ -1,4 +1,8 @@
 {
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -6,7 +10,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash /Users/yaai/.claude/hooks/safety-check.sh"
+            "command": "bash ~/.claude/hooks/safety-check.sh"
           }
         ]
       }
@@ -17,15 +21,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Glass.aiff"
+            "command": "pw-play /usr/share/sounds/freedesktop/stereo/complete.oga"
           }
         ]
       }
     ]
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash /Users/yaai/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,

@@ -118,11 +118,7 @@ format_reset_5h() {
     echo "--"
     return
   fi
-  if [ "$(uname)" = "Darwin" ]; then
-    LC_ALL=en_US.UTF-8 TZ="Asia/Tokyo" date -jf "%Y-%m-%dT%H:%M:%S" "$(echo "$iso" | sed 's/Z$//; s/\.[0-9]*//' | sed 's/+.*//')" "+%-I%p" 2>/dev/null | tr 'AP' 'ap' | tr 'M' 'm' || echo "--"
-  else
-    LC_ALL=en_US.UTF-8 TZ="Asia/Tokyo" date -d "$iso" "+%-I%p" 2>/dev/null | tr 'AP' 'ap' | tr 'M' 'm' || echo "--"
-  fi
+  LC_ALL=en_US.UTF-8 TZ="Asia/Tokyo" date -d "$iso" "+%-I%p" 2>/dev/null | tr 'AP' 'ap' | tr 'M' 'm' || echo "--"
 }
 
 format_reset_7d() {
@@ -131,11 +127,7 @@ format_reset_7d() {
     echo "--"
     return
   fi
-  if [ "$(uname)" = "Darwin" ]; then
-    LC_ALL=en_US.UTF-8 TZ="Asia/Tokyo" date -jf "%Y-%m-%dT%H:%M:%S" "$(echo "$iso" | sed 's/Z$//; s/\.[0-9]*//' | sed 's/+.*//')" "+%b %-d at %-I%p" 2>/dev/null | sed 's/AM/am/g;s/PM/pm/g' || echo "--"
-  else
-    LC_ALL=en_US.UTF-8 TZ="Asia/Tokyo" date -d "$iso" "+%b %-d at %-I%p" 2>/dev/null | sed 's/AM/am/g;s/PM/pm/g' || echo "--"
-  fi
+  LC_ALL=en_US.UTF-8 TZ="Asia/Tokyo" date -d "$iso" "+%b %-d at %-I%p" 2>/dev/null | sed 's/AM/am/g;s/PM/pm/g' || echo "--"
 }
 
 five_reset_str=$(format_reset_5h "$five_hour_resets")
