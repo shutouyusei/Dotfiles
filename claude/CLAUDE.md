@@ -9,6 +9,7 @@ DO NOT start designing a new system. An existing workflow is already set up.
 Instead, guide the user through the existing workflow:
 
 ### Available Commands
+- `/task` — Analyze Linear tasks, report status, update issues via dialogue. Use when the user says "check in", "status check", "what should I do today?", "analyze tasks", or at the start of a morning session.
 - `/setup-project` — Initialize current project (CLAUDE.md, GitHub Actions, secrets, runner check)
 - `/create-task <description>` — Create a GitHub Issue from agreed task in conversation
 - `/execute <issue_number>` — Execute a task interactively
