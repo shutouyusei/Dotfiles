@@ -40,6 +40,13 @@ elif command -v conda &>/dev/null; then
   eval "$(conda shell.$(basename "$SHELL") hook 2>/dev/null)"
 fi
 
-# Secrets — set these per machine (do NOT commit values):
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Claude-mem worker
+alias claude-mem='bun "$HOME/.claude/plugins/marketplaces/thedotmack/plugin/scripts/worker-service.cjs"'
+
+# Secrets — set these per machine in ~/.bashrc.local or ~/.zshrc.local:
 #   export LINEAR_API_KEY="..."
 #   export DISCORD_WEBHOOK_URL="..."

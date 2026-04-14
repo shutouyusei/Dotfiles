@@ -6,12 +6,11 @@ config.color_scheme = "Catppuccin Latte"
 config.automatically_reload_config = true
 config.font_size = 11.0
 config.use_ime = true
-config.window_background_opacity = 0.6
-config.macos_window_background_blur = 1
+config.window_background_opacity = 0.85
 config.foreground_text_hsb = {
 	hue = 1.0,
-	saturation = 1.3,
-	brightness = 0.8,
+	saturation = 1.2,
+	brightness = 1.0,
 }
 config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
 config.bold_brightens_ansi_colors = "No"
