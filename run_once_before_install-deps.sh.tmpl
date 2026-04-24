@@ -5,7 +5,7 @@ set -euo pipefail
 
 echo "=== install-deps: detecting platform ==="
 echo "chezmoi.os       = {{ .chezmoi.os }}"
-echo "chezmoi.osRelease.id = {{ default "unknown" .chezmoi.osRelease.id }}"
+echo "chezmoi.osRelease.id = {{ dig "osRelease" "id" "N/A" .chezmoi }}"
 
 {{ if eq .chezmoi.os "linux" -}}
 # =====================================================================
@@ -82,15 +82,18 @@ brew install \
   git curl \
   ripgrep fd \
   librsvg poppler imagemagick \
-  zathura \
   age \
   lazygit \
   node
 
 brew install --cask \
   wezterm \
-  font-jetbrains-mono-nerd-font \
-  basictex
+  font-jetbrains-mono-nerd-font
+
+# basictex conflicts with mactex — only install if neither is present
+if ! brew list --cask basictex &>/dev/null && ! brew list --cask mactex &>/dev/null; then
+  brew install --cask basictex
+fi
 
 {{ else -}}
 echo "Unsupported OS: {{ .chezmoi.os }}" >&2
