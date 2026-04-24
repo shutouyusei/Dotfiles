@@ -1,0 +1,10 @@
+[user]
+	name = shutouyusei
+	email = syutou.yusei.061@s.kyushu-u.ac.jp
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f

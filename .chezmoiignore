@@ -1,0 +1,6 @@
+# Files chezmoi should not manage.
+README.md
+
+# Per-machine secret files (hand-maintained, never tracked)
+.bashrc.local
+.zshrc.local

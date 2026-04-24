@@ -1,0 +1,24 @@
+# ~/.zshrc — managed by chezmoi
+# Default macOS shell since Catalina
+
+# Source shared config used on Linux + macOS
+[ -f "$HOME/.config/shell/common.sh" ] && . "$HOME/.config/shell/common.sh"
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: brew shellenv
+if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then eval "$(/usr/local/bin/brew shellenv)"
+fi
+{{ end -}}
+
+# Minimal zsh niceties (keep it boring — heavy frameworks live elsewhere)
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE="$HOME/.zsh_history"
+setopt append_history
+setopt hist_ignore_dups
+setopt hist_reduce_blanks
+bindkey -e
+
+# Machine-local secrets
+[ -f "$HOME/.zshrc.local" ] && . "$HOME/.zshrc.local"

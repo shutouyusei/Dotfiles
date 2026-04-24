@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+# Cross-platform dependency installer run once per machine.
+# chezmoi re-runs this whenever its contents change.
+set -euo pipefail
+
+echo "=== install-deps: detecting platform ==="
+echo "chezmoi.os       = {{ .chezmoi.os }}"
+echo "chezmoi.osRelease.id = {{ default "unknown" .chezmoi.osRelease.id }}"
+
+{{ if eq .chezmoi.os "linux" -}}
+# =====================================================================
+#  Linux (Ubuntu/Debian)
+# =====================================================================
+if ! command -v apt-get >/dev/null 2>&1; then
+  echo "ERROR: this installer only supports apt-based distros right now." >&2
+  exit 1
+fi
+
+echo "--- apt update ---"
+sudo apt-get update -qq
+
+echo "--- core system packages ---"
+sudo apt-get install -y -qq \
+  git curl build-essential unzip ca-certificates gnupg \
+  ripgrep fd-find \
+  xclip wl-clipboard \
+  librsvg2-bin poppler-utils imagemagick \
+  zathura texlive-latex-base \
+  age \
+  pipewire-audio-client-libraries
+
+# fd-find on Debian installs as `fdfind`; symlink to `fd` for parity with macOS
+if ! command -v fd >/dev/null && command -v fdfind >/dev/null; then
+  mkdir -p "$HOME/.local/bin"
+  ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
+fi
+
+echo "--- Node.js (nvm) ---"
+if [ ! -d "$HOME/.nvm" ]; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+  export NVM_DIR="$HOME/.nvm"; . "$NVM_DIR/nvm.sh"
+  nvm install --lts
+fi
+
+echo "--- JetBrainsMono Nerd Font ---"
+FONT_DIR="$HOME/.local/share/fonts"
+if [ ! -f "$FONT_DIR/JetBrainsMonoNerdFont-Regular.ttf" ]; then
+  mkdir -p "$FONT_DIR"
+  tmp=$(mktemp -d)
+  curl -sLo "$tmp/jbm.zip" "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+  unzip -qo "$tmp/jbm.zip" -d "$FONT_DIR"
+  fc-cache -f
+fi
+
+echo "--- WezTerm (official apt repo, Ubuntu's is old) ---"
+if ! command -v wezterm >/dev/null; then
+  curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/wezterm-fury.gpg
+  echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
+  sudo apt-get update -qq
+  sudo apt-get install -y -qq wezterm
+fi
+
+echo "--- lazygit ---"
+if ! command -v lazygit >/dev/null; then
+  LZV=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -oE '"tag_name": *"v[^"]+"' | cut -d'"' -f4 | tr -d v)
+  curl -sLo /tmp/lazygit.tgz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LZV}_Linux_x86_64.tar.gz"
+  tar xzf /tmp/lazygit.tgz -C "$HOME/.local/bin" lazygit
+fi
+
+{{ else if eq .chezmoi.os "darwin" -}}
+# =====================================================================
+#  macOS (Homebrew)
+# =====================================================================
+if ! command -v brew >/dev/null 2>&1; then
+  echo "--- installing Homebrew ---"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+fi
+
+echo "--- brew packages ---"
+brew install \
+  git curl \
+  ripgrep fd \
+  librsvg poppler imagemagick \
+  zathura \
+  age \
+  lazygit \
+  node
+
+brew install --cask \
+  wezterm \
+  font-jetbrains-mono-nerd-font \
+  basictex
+
+{{ else -}}
+echo "Unsupported OS: {{ .chezmoi.os }}" >&2
+exit 1
+{{ end -}}
+
+echo ""
+echo "=== install-deps: done ==="
+echo "Next: launch nvim. LazyVim will install plugins on first run."
+echo "Verify with: nvim +ConfigDoctor +qa"

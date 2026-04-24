@@ -1,0 +1,11 @@
+# External sources pulled in at `chezmoi apply` time.
+# Keeps nvim config's own git history intact — we don't vendor it.
+
+[".config/nvim"]
+    type = "git-repo"
+    url = "https://github.com/shutouyusei/NvimLazy.git"
+    refreshPeriod = "168h"
+    [".config/nvim".clone]
+        args = ["--depth", "1"]
+    [".config/nvim".pull]
+        args = ["--ff-only"]
