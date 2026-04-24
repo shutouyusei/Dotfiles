@@ -97,6 +97,38 @@ echo "Unsupported OS: {{ .chezmoi.os }}" >&2
 exit 1
 {{ end -}}
 
+# =====================================================================
+#  SSH key for GitHub (cross-platform)
+# =====================================================================
+# chezmoi external sources and git push all use git@github.com. If no
+# ed25519 key is present, generate one and print instructions. Does not
+# block — the first `chezmoi apply` may fail to clone NvimLazy; after
+# you add the key, re-run `chezmoi apply` and it will succeed.
+
+if [ ! -f "$HOME/.ssh/id_ed25519" ] && [ ! -f "$HOME/.ssh/id_ed25519.pub" ]; then
+  echo ""
+  echo "=== Generating SSH key for GitHub ==="
+  mkdir -p "$HOME/.ssh"
+  chmod 700 "$HOME/.ssh"
+  ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N "" -C "syutou.yusei.061@s.kyushu-u.ac.jp"
+  echo ""
+  echo "============================================================"
+  echo "  ACTION REQUIRED — add this public key to GitHub:"
+  echo "  https://github.com/settings/keys"
+  echo ""
+  cat "$HOME/.ssh/id_ed25519.pub"
+  echo ""
+  echo "  Or, if you have the GitHub CLI installed and authenticated:"
+  echo "    gh ssh-key add ~/.ssh/id_ed25519.pub --title \"$(hostname)\""
+  echo "============================================================"
+fi
+
+# Add github.com to known_hosts so git operations don't prompt
+if ! grep -q "^github\.com" "$HOME/.ssh/known_hosts" 2>/dev/null; then
+  mkdir -p "$HOME/.ssh"
+  ssh-keyscan -t ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null || true
+fi
+
 echo ""
 echo "=== install-deps: done ==="
 echo "Next: launch nvim. LazyVim will install plugins on first run."
