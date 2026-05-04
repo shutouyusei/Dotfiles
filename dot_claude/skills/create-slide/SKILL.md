@@ -7,6 +7,17 @@ allowed-tools: Read, Write, Edit, Bash, Glob
 
 Create a new Marp slide deck from the shared template at `~/tools/slide-tool/template.md`.
 
+## Before you start (required)
+
+Slides are conversation-first, not file-first. Do **not** create any files until the following are settled with the user:
+
+1. **Audience & venue** — lab meeting, advisor 1:1, conference rehearsal, etc. Determines how much background to assume.
+2. **Time budget** — minutes available. Drives slide count.
+3. **The headline** — the *one thing* the audience should remember. Surface 2–3 candidate headlines from the source material and ask the user to pick one.
+4. **Structure** — mirror the source document, or reorganize for the talk (e.g. lead with the conclusion, then justify with evidence)?
+
+Only after these four are agreed, run the steps below.
+
 ## Arguments
 
 `$ARGUMENTS` is parsed as: `[date] [output_dir]`
