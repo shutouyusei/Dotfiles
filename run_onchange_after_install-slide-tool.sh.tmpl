@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Install Marp and other slide-tool dependencies after chezmoi has deployed
+# ~/tools/slide-tool/. Re-runs whenever package.json or package-lock.json
+# changes (the hashes below are part of the script body, so chezmoi detects
+# the change and re-executes).
+#
+# package.json hash:      {{ include "tools/slide-tool/package.json" | sha256sum }}
+# package-lock.json hash: {{ include "tools/slide-tool/package-lock.json" | sha256sum }}
+set -euo pipefail
+
+if [ ! -f "$HOME/tools/slide-tool/package.json" ]; then
+  echo "slide-tool: package.json not found at $HOME/tools/slide-tool/, skipping npm install" >&2
+  exit 0
+fi
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Make brew-installed node visible even when this script runs from chezmoi's
+# non-interactive shell (no rc file sourced).
+if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then eval "$(/usr/local/bin/brew shellenv)"
+fi
+{{ else if eq .chezmoi.os "linux" -}}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+{{ end -}}
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "slide-tool: npm not found in PATH, skipping (run install-deps script first)" >&2
+  exit 0
+fi
+
+echo "--- slide-tool: npm install ---"
+( cd "$HOME/tools/slide-tool" && npm install --silent )
+echo "slide-tool: npm install done"

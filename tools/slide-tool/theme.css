@@ -1,0 +1,633 @@
+/* @theme lis-lab */
+
+@import 'default';
+
+/* ==========================================================
+   Colors — from MT_SoftRobotics_v5.pptx
+   ========================================================== */
+
+:root {
+  --text-primary: #3D3D3D;
+  --text-light: #888888;
+  --bg-main: #F8F8F8;
+  --bg-white: #FFFFFF;
+  --accent-blue: #2B4EAE;
+  --accent-green: #3DAB8E;
+  --accent-red: #C03936;
+  --accent-orange: #ED7D31;
+  --border-color: #DDDDDD;
+}
+
+/* ==========================================================
+   Base
+   Font: Calibri, matching pptx
+   ========================================================== */
+
+section {
+  font-family: 'Calibri', 'Segoe UI', 'Meiryo', 'メイリオ', sans-serif;
+  font-weight: 400;
+  background: var(--bg-white);
+  color: var(--text-primary);
+  padding: 80px 70px 60px 70px;
+  position: relative;
+}
+
+section::before { display: none; }
+
+/* ==========================================================
+   H1 — dual-color underline (blue + green)
+   ========================================================== */
+
+section h1 {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.35em;
+  border-bottom: none;
+  padding-bottom: 16px;
+  margin-top: 0;
+  margin-bottom: 24px;
+  line-height: 1.4;
+  position: relative;
+}
+
+section h1::before {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  width: 50%;
+  height: 3px;
+  background: var(--accent-blue);
+}
+
+section h1::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 50%;
+  height: 3px;
+  background: var(--accent-green);
+}
+
+section h2 {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.05em;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+section h3 {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+section p,
+section li {
+  font-family: 'Calibri', 'Segoe UI', 'Meiryo', 'メイリオ', sans-serif;
+  font-weight: 400;
+  font-size: 0.72em;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+section a { color: var(--accent-blue); text-decoration: underline; }
+section strong { color: var(--text-primary); font-weight: 700; }
+
+/* ***bold italic*** = accent blue */
+section em strong,
+section strong em { color: var(--accent-blue); font-style: normal; }
+section em { color: var(--text-light); font-style: italic; }
+
+/* ==========================================================
+   Lists
+   ========================================================== */
+
+section ul { list-style: disc; margin-left: 0.5em; padding-left: 1.2em; }
+section ul > li { margin-bottom: 0.35em; }
+section ul > li::marker { color: var(--accent-blue); font-size: 0.8em; }
+section ul ul { list-style: disc; }
+section ul ul > li::marker { font-size: 0.6em; }
+section ol { margin-left: 0.5em; }
+section li { margin-bottom: 0.3em; }
+
+/* ==========================================================
+   Header & Pagination — right-aligned, gray
+   ========================================================== */
+
+header {
+  font-family: 'Calibri', 'Segoe UI', 'Meiryo', 'メイリオ', sans-serif;
+  font-weight: 400;
+  font-size: 0.6em;
+  color: var(--text-light);
+  letter-spacing: 0.03em;
+  position: absolute;
+  top: 18px;
+  right: 60px;
+  left: auto;
+  width: auto;
+  text-align: right;
+}
+
+section[data-marpit-pagination]::after {
+  content: '|  ' attr(data-marpit-pagination);
+  position: absolute;
+  top: 18px;
+  right: 30px;
+  font-size: 0.6em;
+  color: var(--text-light);
+  font-weight: 400;
+  font-family: 'Calibri', 'Segoe UI', 'Meiryo', 'メイリオ', sans-serif;
+  width: auto; height: auto;
+  background: none;
+  bottom: auto; left: auto;
+}
+
+/* ==========================================================
+   Table — blue header, white rows, no alternating
+   ========================================================== */
+
+section table {
+  border-collapse: collapse;
+  width: auto;
+  font-size: 0.68em;
+  margin: 12px auto;
+}
+
+section table th {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 10px 16px;
+  text-align: left;
+  border: none;
+}
+
+section table td {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-white);
+}
+
+section table tr:nth-child(even) td { background: var(--bg-white); }
+
+/* ==========================================================
+   Code
+   ========================================================== */
+
+section code {
+  font-family: 'Source Code Pro', 'Consolas', monospace;
+  background: var(--bg-main);
+  color: var(--accent-blue);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  border: 1px solid var(--border-color);
+}
+
+section pre {
+  background: #1E1E1E;
+  border-radius: 6px;
+  padding: 16px;
+  border-left: 4px solid var(--accent-blue);
+}
+
+section pre code {
+  background: transparent;
+  color: #D4D4D4;
+  border: none;
+  padding: 0;
+}
+
+/* ==========================================================
+   Blockquote
+   ========================================================== */
+
+section blockquote {
+  border-left: 4px solid var(--accent-blue);
+  background: var(--bg-main);
+  padding: 12px 20px;
+  margin: 16px 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.72em;
+  color: var(--text-light);
+}
+
+/* ==========================================================
+   Images & Footer
+   ========================================================== */
+
+section img { border-radius: 2px; }
+footer { font-size: 0.55em; color: var(--text-light); }
+
+section .citation {
+  font-size: 0.55em;
+  color: var(--text-light);
+  position: absolute;
+  bottom: 40px;
+  left: 70px;
+  right: 70px;
+}
+
+/* ==========================================================
+   Slide: title
+   Centered content, dual-color line, gray metadata
+   ========================================================== */
+
+section.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 80px 80px 80px;
+}
+
+section.title::before { display: none; }
+section.title[data-marpit-pagination]::after { display: none; }
+
+section.title h1 {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  padding-bottom: 0;
+}
+
+section.title h1::before { display: none; }
+section.title h1::after { display: none; }
+
+section.title h2 {
+  color: var(--accent-blue);
+  font-weight: 400;
+  font-size: 0.95em;
+  margin-top: 12px;
+  margin-bottom: 64px;
+}
+
+/* Dual-color line after subtitle */
+section.title h2::after {
+  content: '';
+  display: block;
+  margin-top: 16px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-blue) 50%, var(--accent-green) 50%);
+}
+
+section.title p { color: var(--text-light); font-size: 0.9em; }
+section.title ol { color: var(--text-light); font-size: 0.85em; }
+
+/* ==========================================================
+   Slide: divider
+   ========================================================== */
+
+section.divider {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: var(--bg-main);
+}
+
+section.divider::before { display: none; }
+section.divider h1 { font-size: 1.8em; }
+section.divider p { color: var(--text-light); font-size: 1.1em; margin-top: 16px; }
+
+/* ==========================================================
+   Slide: end
+   ========================================================== */
+
+section.end {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+section.end::before { display: none; }
+section.end[data-marpit-pagination]::after { display: none; }
+section.end h1 { font-size: 2.0em; }
+section.end h1::before, section.end h1::after { display: none; }
+section.end p { color: var(--text-light); font-size: 1.1em; }
+
+/* ==========================================================
+   Component: section-title
+   Colored title with matching underline (like pptx section headers)
+   ========================================================== */
+
+section .section-title {
+  font-weight: 700;
+  font-size: 0.78em;
+  margin-bottom: 4px;
+}
+
+section .section-title.blue  { color: var(--accent-blue); }
+section .section-title.green { color: var(--accent-green); }
+
+section .section-line {
+  height: 2px;
+  margin-bottom: 16px;
+}
+
+section .section-line.blue  { background: var(--accent-blue); }
+section .section-line.green { background: var(--accent-green); }
+
+/* ==========================================================
+   Component: card
+   Rounded rect with colored top accent bar
+   ========================================================== */
+
+section .card {
+  background: var(--bg-main);
+  border-radius: 8px;
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #E0E0E0;
+}
+
+section .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8px;
+  right: 8px;
+  height: 4px;
+  background: var(--accent-blue);
+  border-radius: 0 0 2px 2px;
+}
+
+section .card.green::before  { background: var(--accent-green); }
+section .card.red::before    { background: var(--accent-red); }
+section .card.orange::before { background: var(--accent-orange); }
+
+/* ==========================================================
+   Component: callout
+   Left accent bar with tinted background
+   ========================================================== */
+
+section .callout {
+  background: #F0F4F8;
+  border-radius: 8px;
+  padding: 16px 20px 16px 28px;
+  border-left: 5px solid var(--accent-blue);
+  margin: 16px 0;
+}
+
+section .callout.red    { background: #FDF2F2; border-left-color: var(--accent-red); }
+section .callout.green  { background: #F0F8F7; border-left-color: var(--accent-green); }
+section .callout.orange { background: #FEF6EE; border-left-color: var(--accent-orange); }
+
+/* ==========================================================
+   Component: question
+   Gray italic text at bottom (matching pptx advisor questions)
+   ========================================================== */
+
+section .question {
+  color: var(--text-light);
+  font-size: 0.68em;
+  position: absolute;
+  bottom: 40px;
+  left: 70px;
+  right: 70px;
+}
+
+/* ==========================================================
+   Component: numbered-steps
+   Blue circle number + title + description (matching pptx Next Steps)
+   ========================================================== */
+
+section .numbered-steps {
+  display: flex;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+section .numbered-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 12px;
+  border-left: 2px solid var(--border-color);
+}
+
+section .numbered-step .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.9em;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+section .numbered-step .step-title {
+  font-weight: 700;
+  font-size: 0.78em;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+section .numbered-step .step-desc {
+  font-size: 0.65em;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   Component: column-divider
+   Thin vertical line between columns (matching pptx)
+   ========================================================== */
+
+section .col-divider {
+  width: 2px;
+  background: var(--border-color);
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+/* ==========================================================
+   Component: overview
+   Goal → arrow → step cards flow
+   ========================================================== */
+
+section .overview {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+section .overview .goal {
+  flex: 0 0 180px;
+  background: var(--bg-main);
+  border-radius: 8px;
+  padding: 20px;
+  border-left: 5px solid var(--accent-blue);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+section .overview .goal p { font-size: 0.78em; margin: 4px 0 0 0; }
+
+section .overview .goal-arrow {
+  display: flex;
+  align-items: center;
+  font-size: 1.5em;
+  color: var(--border-color);
+  flex-shrink: 0;
+}
+
+section .overview .results {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+section .overview .results .step { text-align: center; flex: 1; }
+
+section .overview .results .step-label {
+  color: white;
+  border-radius: 8px;
+  padding: 12px 6px;
+  font-weight: 700;
+  font-size: 0.8em;
+}
+
+section .overview .results .step-label.blue   { background: var(--accent-blue); }
+section .overview .results .step-label.green  { background: var(--accent-green); }
+section .overview .results .step-label.red    { background: var(--accent-red); }
+section .overview .results .step-label.orange { background: var(--accent-orange); }
+section .overview .results .step-label.dashed {
+  background: var(--bg-main);
+  border: 2px dashed var(--border-color);
+  color: var(--text-light);
+}
+
+section .overview .results .step-detail {
+  font-size: 0.65em;
+  color: var(--text-light);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+section .overview .results .arrow {
+  display: flex;
+  align-items: center;
+  color: var(--border-color);
+  font-size: 1.2em;
+  flex-shrink: 0;
+}
+
+/* ==========================================================
+   Component: timeline
+   Horizontal progression with dots and connecting lines
+   ========================================================== */
+
+section .timeline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  margin-top: 48px;
+}
+
+section .timeline-item {
+  flex: 1;
+  text-align: center;
+  max-width: 280px;
+}
+
+section .timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  margin: 0 auto 12px;
+}
+
+section .timeline-dot.green  { background: var(--accent-green); }
+section .timeline-dot.orange { background: var(--accent-orange); }
+section .timeline-dot.red    { background: var(--accent-red); }
+
+section .timeline-line {
+  width: 60px;
+  height: 2px;
+  background: var(--border-color);
+  align-self: center;
+  margin-top: -50px;
+  flex-shrink: 0;
+}
+
+section .timeline-label {
+  font-weight: 700;
+  font-size: 0.82em;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+section .timeline-desc {
+  font-size: 0.72em;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+section .timeline-note {
+  font-size: 0.6em;
+  color: var(--text-light);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ==========================================================
+   Component: desc-list
+   Colored keyword + indented gray description
+   ========================================================== */
+
+section .desc-list {
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+section .desc-list .term {
+  font-weight: 700;
+  font-size: 0.75em;
+  color: var(--accent-blue);
+  margin-bottom: 2px;
+  margin-top: 14px;
+}
+
+section .desc-list .term:first-child { margin-top: 0; }
+
+section .desc-list .term.green  { color: var(--accent-green); }
+section .desc-list .term.red    { color: var(--accent-red); }
+section .desc-list .term.orange { color: var(--accent-orange); }
+section .desc-list .term.muted  { color: var(--text-primary); }
+
+section .desc-list .desc {
+  font-size: 0.65em;
+  color: var(--text-light);
+  padding-left: 16px;
+  line-height: 1.5;
+}
+
+/* ==========================================================
+   Utility
+   ========================================================== */
+
+section .blue   { color: var(--accent-blue); }
+section .red    { color: var(--accent-red); }
+section .orange { color: var(--accent-orange); }
+section .green  { color: var(--accent-green); }
