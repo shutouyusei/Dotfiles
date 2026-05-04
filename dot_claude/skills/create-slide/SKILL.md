@@ -42,6 +42,7 @@ Examples:
 ## Rules
 
 - All slide content MUST be written in English.
+- **Avoid jargon when drafting slide content.** If a technical term must be used, define it in one line on its first appearance — do not assume the audience knows it. This applies to *every* slide drafted in conversation after the scaffold is created, not just the title slide.
 - Always use `~/tools/slide-tool/template.md` as the base — do not invent a template.
 - Do NOT overwrite an existing deck file — warn the user instead.
 - Filename convention: `<title-slug>.md` directly under `output_dir` (no date subfolder).
