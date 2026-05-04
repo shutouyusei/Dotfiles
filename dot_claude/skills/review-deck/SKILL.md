@@ -104,13 +104,14 @@ Assess and cite slide / line numbers for each issue:
 
 1. **Flow** — does each slide set up or pay off the next? Where does the thread break?
 2. **Headline support** — is "<headline>" demonstrated by the slides or asserted on top of them?
-3. **Listener gaps** — what would a member of <audience> ask "wait, what?" about? (undefined terms, unjustified leaps)
-4. **One slide, one message** — does each slide carry exactly one idea, or are some carrying two-plus?
-5. **Time fit** — estimate speaking time per slide at ~120 wpm. Does the total fit the <time_budget>? Flag overweight slides.
-6. **Discussion seed** — if the final slide poses a question, is it strong enough to generate real engagement, or is it bait that invites reassurance?
-7. **Cuts / missing** — any dead weight to cut? Anything load-bearing that's missing?
+3. **Jargon (hard rule)** — every technical term must either (a) already be in the audience's working vocabulary, or (b) get a one-line definition the first time it appears on a slide. Flag every undefined or under-defined term, even ones that "everyone in the lab obviously knows" — that defense is not sufficient; flag it and let the speaker decide whether to keep, define, or remove. List each flagged term with its slide / line number.
+4. **Listener gaps beyond jargon** — what unjustified reasoning leaps or missing steps would a member of <audience> stumble on?
+5. **One slide, one message** — does each slide carry exactly one idea, or are some carrying two-plus?
+6. **Time fit** — estimate speaking time per slide at ~120 wpm. Does the total fit the <time_budget>? Flag overweight slides.
+7. **Discussion seed** — if the final slide poses a question, is it strong enough to generate real engagement, or is it bait that invites reassurance?
+8. **Cuts / missing** — any dead weight to cut? Anything load-bearing that's missing?
 
-Do NOT review layout / design or numerical accuracy — other reviewers handle those. Report under 300 words.
+Do NOT review layout / design or numerical accuracy — other reviewers handle those. Report under 350 words (the jargon list may need extra room).
 ```
 
 ## Output format
