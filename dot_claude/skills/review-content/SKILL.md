@@ -10,10 +10,12 @@ Review slide content for quality and logical consistency.
 ## Arguments
 
 `$ARGUMENTS` should be one of:
-- A path to a specific `slides.md` file
-- A directory containing `slides.md`
-- A date folder name like `2026-05-14` (searched under `$PWD/slides/`)
-- Empty — reviews the most recent slide deck under `$PWD/slides/`
+
+- A path to a specific Marp `.md` deck file (e.g., `Projects/VLA/BlindVLA/blind-vla-evaluation.md`)
+- A directory containing exactly one Marp `.md` deck
+- Empty — finds the most recently modified Marp `.md` deck under `$PWD` (recursive)
+
+If the resolved directory contains multiple Marp `.md` files, ask the user which one to review.
 
 ## Review Criteria
 
