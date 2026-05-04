@@ -26,6 +26,7 @@ If the resolved directory contains multiple Marp `.md` files, ask the user which
 5. **Emphasis**: Is `***bold italic***` (blue highlight) used effectively for key findings?
 6. **Completeness**: Are there gaps in the story? (e.g., methods shown but no results, results without discussion)
 7. **Conciseness**: Flag slides with too much text that could overflow.
+8. **Visual-vs-text fit**: For each slide, would the message be more memorable as an SVG / chart / diagram than as the current bullets or table? Flag: result data shown as a markdown table (could be a bar / line chart); comparisons described in prose (could be a two-panel diagram); multi-step processes in bullets (could be a flowchart). Flag candidates with slide / line numbers — the speaker decides whether to invest in the SVG.
 
 ## Output
 

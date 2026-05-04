@@ -110,6 +110,7 @@ Assess and cite slide / line numbers for each issue:
 6. **Time fit** — estimate speaking time per slide at ~120 wpm. Does the total fit the <time_budget>? Flag overweight slides.
 7. **Discussion seed** — if the final slide poses a question, is it strong enough to generate real engagement, or is it bait that invites reassurance?
 8. **Cuts / missing** — any dead weight to cut? Anything load-bearing that's missing?
+9. **Visual-vs-text fit** — for each slide, ask: would this be more memorable as an SVG / chart / diagram than as the current bullets or table? Specifically flag: result data shown as a markdown table (could be a chart); comparisons described in prose (could be a two-panel diagram); multi-step processes described in bullets (could be a flowchart). Flag candidates with slide / line numbers; the speaker decides whether to invest in the SVG.
 
 Do NOT review layout / design or numerical accuracy — other reviewers handle those. Report under 350 words (the jargon list may need extra room).
 ```
