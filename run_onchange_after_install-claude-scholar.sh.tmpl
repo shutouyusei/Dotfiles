@@ -42,4 +42,30 @@ git -C "$SCHOLAR_SRC" checkout --quiet "$SCHOLAR_REF"
 
 echo "--- claude-scholar: running setup.sh ---"
 bash "$SCHOLAR_SRC/scripts/setup.sh"
-echo "claude-scholar: install done"
+
+# Prune components we deliberately don't want. setup.sh installs everything, so
+# this runs after it. Keep in sync with the curated removal set. Removed:
+#   - SuperClaude /sc:* suite (redundant with superpowers)
+#   - Web/UI skills (no web-app work; frontend-design duplicates the plugin)
+#   - Dev-workflow dups (overlap superpowers + pr-review-toolkit/commit-commands/tdd-guard)
+#   - Plugin-authoring meta-skills + Kaggle
+#   - skill-forced-eval / session-summary / stop-summary hook scripts (dropped from settings)
+echo "--- claude-scholar: pruning unwanted components ---"
+CLAUDE_DIR="$HOME/.claude"
+PRUNE=(
+  commands/sc
+  commands/commit.md commands/code-review.md commands/tdd.md commands/plan.md
+  commands/verify.md commands/refactor-clean.md commands/build-fix.md commands/checkpoint.md
+  skills/frontend-design skills/webapp-testing skills/web-design-reviewer skills/ui-ux-pro-max
+  skills/bug-detective skills/daily-coding skills/git-workflow skills/code-review-excellence
+  skills/planning-with-files skills/verification-loop
+  skills/agent-identifier skills/command-development skills/hook-development skills/mcp-integration
+  skills/plugin-structure skills/skill-development skills/skill-improver skills/skill-quality-reviewer
+  skills/kaggle-learner
+  agents/code-reviewer.md agents/tdd-guide.md agents/kaggle-miner.md
+  hooks/skill-forced-eval.js hooks/session-summary.js hooks/stop-summary.js
+)
+for rel in "${PRUNE[@]}"; do
+  rm -rf "$CLAUDE_DIR/$rel"
+done
+echo "claude-scholar: install + prune done"
