@@ -51,6 +51,18 @@ Rules:
 - One commit = one test + the code to make it pass (one logical feature).
 - No duplication — reuse existing helpers from the codebase, extract shared functions when duplication is spotted.
 
+## Research Workflow (claude-scholar)
+
+For research tasks, prefer these installed skills/commands/agents over improvising:
+
+- **Ideation & literature** — `/research-init`, skill `research-ideation`, agent `literature-reviewer`
+- **Experiments & analysis** — `/analyze-results`, skills `results-analysis` (strict stats + figures), `results-report`
+- **Paper writing** — skills `ml-paper-writing`, `nature-writing`/`nature-polishing`, `citation-verification`, `paper-self-review`, `writing-anti-ai`
+- **Rebuttals & review response** — `/rebuttal`, skill `review-response`, agent `rebuttal-writer`
+- **Publication figures** — skill `publication-chart-skill`
+- **Knowledge base (Obsidian)** — `/kb-init`, then `/kb-ingest`, `/kb-log`, `/kb-promote`, `/kb-status`
+- **Zotero** — `/zotero-review`, `/zotero-notes` (needs `zotero-mcp` + keys in `settings.json`)
+
 ## English Learning Mode
 
 All interactions MUST follow these rules:

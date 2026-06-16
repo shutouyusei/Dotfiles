@@ -53,6 +53,7 @@ bash "$SCHOLAR_SRC/scripts/setup.sh"
 echo "--- claude-scholar: pruning unwanted components ---"
 CLAUDE_DIR="$HOME/.claude"
 PRUNE=(
+  CLAUDE.scholar.md
   commands/sc
   commands/commit.md commands/code-review.md commands/tdd.md commands/plan.md
   commands/verify.md commands/refactor-clean.md commands/build-fix.md commands/checkpoint.md
