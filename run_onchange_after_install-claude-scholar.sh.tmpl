@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Install Galaxy-Dawn/claude-scholar into ~/.claude on a fresh machine.
+#
+# This distributes claude-scholar's skills/commands/agents/rules/hooks/templates
+# via the repo's own backup-aware setup.sh. The session hooks themselves are
+# activated by dot_claude/settings.json.tmpl (canonical, tracked); the Zotero
+# MCP block stays machine-local in ~/.claude/settings.json (it holds secrets and
+# is intentionally not tracked, like model/effortLevel/tui).
+#
+# Re-runs whenever SCHOLAR_REF below changes (the ref is part of the script body,
+# so chezmoi detects the change and re-executes). Bump it to update claude-scholar.
+set -euo pipefail
+
+SCHOLAR_REF="34d0cdb48a03080c7243841e19ff03ef30967d97"  # Galaxy-Dawn/claude-scholar
+SCHOLAR_URL="https://github.com/Galaxy-Dawn/claude-scholar.git"
+SCHOLAR_SRC="$HOME/.cache/claude-scholar"
+
+{{ if eq .chezmoi.os "linux" -}}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+{{ else if eq .chezmoi.os "darwin" -}}
+if [ -x /opt/homebrew/bin/brew ]; then eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [ -x /usr/local/bin/brew ]; then eval "$(/usr/local/bin/brew shellenv)"
+fi
+{{ end -}}
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "claude-scholar: node not found in PATH, skipping (hooks need Node.js)" >&2
+  exit 0
+fi
+if ! command -v git >/dev/null 2>&1; then
+  echo "claude-scholar: git not found, skipping" >&2
+  exit 0
+fi
+
+echo "--- claude-scholar: syncing $SCHOLAR_REF ---"
+if [ ! -d "$SCHOLAR_SRC/.git" ]; then
+  git clone --quiet "$SCHOLAR_URL" "$SCHOLAR_SRC"
+fi
+git -C "$SCHOLAR_SRC" fetch --quiet origin
+git -C "$SCHOLAR_SRC" checkout --quiet "$SCHOLAR_REF"
+
+echo "--- claude-scholar: running setup.sh ---"
+bash "$SCHOLAR_SRC/scripts/setup.sh"
+echo "claude-scholar: install done"
