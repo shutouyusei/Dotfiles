@@ -49,7 +49,8 @@ bash "$SCHOLAR_SRC/scripts/setup.sh"
 #   - Web/UI skills (no web-app work; frontend-design duplicates the plugin)
 #   - Dev-workflow dups (overlap superpowers + pr-review-toolkit/commit-commands/tdd-guard)
 #   - Plugin-authoring meta-skills + Kaggle
-#   - skill-forced-eval / session-summary / stop-summary hook scripts (dropped from settings)
+#   - skill-forced-eval hook (file pruned + its UserPromptSubmit entry stripped
+#     from settings.json to avoid Node "module not found" crashes on every prompt)
 echo "--- claude-scholar: pruning unwanted components ---"
 CLAUDE_DIR="$HOME/.claude"
 PRUNE=(
@@ -64,9 +65,22 @@ PRUNE=(
   skills/plugin-structure skills/skill-development skills/skill-improver skills/skill-quality-reviewer
   skills/kaggle-learner
   agents/code-reviewer.md agents/tdd-guide.md agents/kaggle-miner.md
-  hooks/skill-forced-eval.js hooks/session-summary.js hooks/stop-summary.js
+  hooks/skill-forced-eval.js
 )
 for rel in "${PRUNE[@]}"; do
   rm -rf "$CLAUDE_DIR/$rel"
 done
+
+# Setup.sh merges hook entries for the pruned scripts into settings.json.
+# Strip the one whose file we just deleted so Claude Code stops trying to spawn it.
+if command -v jq >/dev/null 2>&1 && [ -f "$CLAUDE_DIR/settings.json" ]; then
+  tmp=$(mktemp)
+  if jq 'if .hooks.UserPromptSubmit then del(.hooks.UserPromptSubmit) else . end' \
+       "$CLAUDE_DIR/settings.json" > "$tmp"; then
+    mv "$tmp" "$CLAUDE_DIR/settings.json"
+  else
+    rm -f "$tmp"
+  fi
+fi
+
 echo "claude-scholar: install + prune done"
